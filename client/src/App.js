@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
+import LiveuamapIframe from "./components/LiveuamapIframe";
+import ArticleList from "./components/ArticleList";
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -85,21 +87,19 @@ function App() {
 
       {loading ? <p>Loading...</p> : null}
 
-      <div className="articles">
-        {articles.map((article, index) => (
-          <div key={index} className="article">
-            <h3>{article.title}</h3>
-            <p>{article.description}</p>
-            <a href={article.url} target="_blank" rel="noopener noreferrer">Read more</a>
-          </div>
-        ))}
+      <div className="content">
+        <div className="iframe-container">
+          <LiveuamapIframe />
+        </div>
+        <div className="articles-container">
+          <ArticleList articles={articles} />
+          {totalResults > articles.length && (
+            <button onClick={handleLoadMore} disabled={loading}>
+              {loading ? 'Loading...' : 'Load More'}
+            </button>
+          )}
+        </div>
       </div>
-
-      {totalResults > articles.length && (
-        <button onClick={handleLoadMore} disabled={loading}>
-          {loading ? 'Loading...' : 'Load More'}
-        </button>
-      )}
     </div>
   );
 }
