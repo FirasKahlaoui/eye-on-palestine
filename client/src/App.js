@@ -64,32 +64,41 @@ function App() {
 
   return (
     <div className="App">
-      <h1>War News</h1>
+      <h1 className="text-3xl font-bold mb-5">War News</h1>
 
-      <form onSubmit={handleFilterSubmit}>
+      <form onSubmit={handleFilterSubmit} className="mb-5">
         <input
           type="text"
           placeholder="Keyword"
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
+          className="m-2 p-2 border rounded"
         />
         <input
           type="date"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
+          className="m-2 p-2 border rounded"
         />
         <input
           type="date"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
+          className="m-2 p-2 border rounded"
         />
         <input
           type="text"
           placeholder="Source (e.g., BBC)"
           value={source}
           onChange={(e) => setSource(e.target.value)}
+          className="m-2 p-2 border rounded"
         />
-        <button type="submit">Filter</button>
+        <button
+          type="submit"
+          className="p-3 m-5 bg-blue-500 text-white rounded hover:bg-blue-700"
+        >
+          Filter
+        </button>
       </form>
 
       {loading ? <p>Loading...</p> : null}
@@ -98,7 +107,11 @@ function App() {
         <div className="articles-container">
           <ArticleList articles={articles} />
           {totalResults > articles.length && (
-            <button onClick={handleLoadMore} disabled={loading}>
+            <button
+              onClick={handleLoadMore}
+              disabled={loading}
+              className="p-3 m-5 bg-blue-500 text-white rounded hover:bg-blue-700"
+            >
               {loading ? "Loading..." : "Load More"}
             </button>
           )}

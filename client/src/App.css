@@ -1,49 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .App {
-  text-align: center;
+  @apply text-center;
 }
+
 form {
-  margin-bottom: 20px;
+  @apply mb-5;
 }
+
 input {
-  margin: 5px;
-  padding: 5px;
+  @apply m-2 p-2 border rounded;
 }
+
 button {
-  padding: 10px 20px;
-  margin: 20px;
-  cursor: pointer;
+  @apply p-3 m-5 bg-blue-500 text-white rounded hover:bg-blue-700;
 }
+
 .content {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 20px;
+  @apply flex justify-center items-start gap-5;
 }
+
 .iframe-container {
-  flex: 1;
-  max-width: 1200px;
+  @apply flex-1 max-w-4xl;
 }
+
 .articles-container {
-  flex: 1;
-  max-width: 600px;
+  @apply flex-1 max-w-xl;
 }
+
 .articles {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  @apply flex flex-wrap justify-center;
 }
+
 .article {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin: 10px;
-  width: 100%;
-  text-align: left;
+  @apply border border-gray-300 p-5 m-5 w-full text-left rounded shadow-lg;
 }
+
 .article h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
+  @apply text-xl font-bold mb-3;
 }
+
 .article p {
-  font-size: 14px;
-  margin-bottom: 10px;
+  @apply text-base mb-3;
+}
+
+.article img {
+  @apply w-full h-auto rounded mt-3;
 }
