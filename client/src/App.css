@@ -22,20 +22,16 @@ button {
   @apply flex justify-center items-start gap-5;
 }
 
-.iframe-container {
+.articles-container {
   @apply flex-1 max-w-4xl;
 }
 
-.articles-container {
-  @apply flex-1 max-w-xl;
-}
-
 .articles {
-  @apply flex flex-wrap justify-center;
+  @apply grid grid-cols-1 md:grid-cols-2 gap-5;
 }
 
 .article {
-  @apply border border-gray-300 p-5 m-5 w-full text-left rounded shadow-lg;
+  @apply border border-gray-300 p-5 rounded shadow-lg;
 }
 
 .article h3 {
