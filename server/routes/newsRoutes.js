@@ -24,4 +24,15 @@ router.get('/gnews', async (req, res) => {
   }
 });
 
+// Fetch news from Liveuamap API
+router.get('/liveuamap', async (req, res) => {
+  try {
+    const response = await axios.get(`https://api.liveuamap.com/endpoint?apiKey=${process.env.LIVEUAMAP_API_KEY}`);
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.error("Error fetching news from Liveuamap API:", error);
+    res.status(500).send("Error fetching news: " + JSON.stringify(error));
+  }
+});
+
 module.exports = router;
