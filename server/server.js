@@ -25,10 +25,12 @@ admin.initializeApp({
 // Import routes after initializing Firebase
 const firebaseRoutes = require("./routes/firebaseRoutes");
 const twitterRoutes = require("./routes/twitterRoutes");
+const newsRoutes = require("./routes/newsRoutes");
 
 // Use routes
 app.use("/firebase", firebaseRoutes);
 app.use("/twitter", twitterRoutes);
+app.use("/news", newsRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
