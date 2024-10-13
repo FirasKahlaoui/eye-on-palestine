@@ -1,52 +1,101 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import "./App.css";
 
-const App = () => {
+function App() {
   const [articles, setArticles] = useState([]);
+  const [keyword, setKeyword] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [source, setSource] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const fetchArticles = async () => {
+    setLoading(true);
     try {
-      // Constructing the News API URL
-      const newsApiUrl = `https://newsapi.org/v2/everything?q=Palestine&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`;
+      const newsApiUrl = `https://newsapi.org/v2/everything?q=${
+        keyword || "Palestine"
+      }&from=${startDate}&to=${endDate}&sources=${source}&apiKey=${
+        process.env.REACT_APP_NEWS_API_KEY
+      }`;
+      const gnewsApiUrl = `https://gnews.io/api/v4/search?q=${
+        keyword || "Palestine"
+      }&from=${startDate}&to=${endDate}&token=${
+        process.env.REACT_APP_GNEWS_API_KEY
+      }`;
 
-      // Fetching from News API
-      const newsResponse = await fetch(newsApiUrl);
+      const [newsResponse, gnewsResponse] = await Promise.all([
+        fetch(newsApiUrl),
+        fetch(gnewsApiUrl),
+      ]);
+
       const newsData = await newsResponse.json();
-
-      // Constructing the GNews API URL
-      const gnewsApiUrl = `https://gnews.io/api/v4/search?q=Palestine&token=${process.env.REACT_APP_GNEWS_API_KEY}`;
-
-      // Fetching from GNews API
-      const gnewsResponse = await fetch(gnewsApiUrl);
       const gnewsData = await gnewsResponse.json();
 
-      // Combine articles from both APIs
-      const combinedArticles = [...newsData.articles, ...gnewsData.articles];
-
-      setArticles(combinedArticles);
+      // Merge articles from both APIs
+      const mergedArticles = [...newsData.articles, ...gnewsData.articles];
+      setArticles(mergedArticles);
     } catch (error) {
       console.error("Error fetching articles:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchArticles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleFilterSubmit = (e) => {
+    e.preventDefault();
+    fetchArticles();
+  };
+
   return (
-    <div>
-      <h1>Articles about Palestine</h1>
-      <ul>
+    <div className="App">
+      <h1>War News</h1>
+
+      <form onSubmit={handleFilterSubmit}>
+        <input
+          type="text"
+          placeholder="Keyword"
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
+        />
+        <input
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+        />
+        <input
+          type="date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Source (e.g., BBC)"
+          value={source}
+          onChange={(e) => setSource(e.target.value)}
+        />
+        <button type="submit">Filter</button>
+      </form>
+
+      {loading ? <p>Loading...</p> : null}
+
+      <div className="articles">
         {articles.map((article, index) => (
-          <li key={index}>
-            <a href={article.url} target="_blank" rel="noopener noreferrer">
-              {article.title}
-            </a>
+          <div key={index} className="article">
+            <h3>{article.title}</h3>
             <p>{article.description}</p>
-          </li>
+            <a href={article.url} target="_blank" rel="noopener noreferrer">
+              Read more
+            </a>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
-};
+}
 
 export default App;
