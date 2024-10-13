@@ -10,18 +10,15 @@ const client = new Twitter({
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
-// Fetch tweets from a specific user
+// Fetch user details by username
 router.get("/user/:username", async (req, res) => {
   const { username } = req.params;
   try {
-    const tweets = await client.get("statuses/user_timeline", {
-      screen_name: username,
-      count: 5,
-    });
-    res.status(200).json(tweets);
+    const user = await client.get("users/by/username/" + username);
+    res.status(200).json(user);
   } catch (error) {
-    console.error("Error fetching tweets:", error);
-    res.status(500).send("Error fetching tweets: " + JSON.stringify(error));
+    console.error("Error fetching user:", error);
+    res.status(500).send("Error fetching user: " + JSON.stringify(error));
   }
 });
 
