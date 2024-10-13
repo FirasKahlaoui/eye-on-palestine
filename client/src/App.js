@@ -9,9 +9,9 @@ function App() {
   const [endDate, setEndDate] = useState("");
   const [source, setSource] = useState("");
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1); // Add page state
-  const [pageSize] = useState(10); // Limit results to 10 per page
-  const [totalResults, setTotalResults] = useState(0); // Track total articles
+  const [page, setPage] = useState(1); 
+  const [pageSize] = useState(10); 
+  const [totalResults, setTotalResults] = useState(0);
 
   const fetchArticles = async () => {
     setLoading(true);
@@ -53,13 +53,13 @@ function App() {
 
   const handleFilterSubmit = (e) => {
     e.preventDefault();
-    setArticles([]); // Clear previous articles on new search
-    setPage(1); // Reset page to 1 when filters are applied
+    setArticles([]);
+    setPage(1); 
     fetchArticles();
   };
 
   const handleLoadMore = () => {
-    setPage(page + 1); // Increment page number when "Load More" is clicked
+    setPage(page + 1); 
   };
 
   return (
