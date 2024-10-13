@@ -1,20 +1,22 @@
-const express = require('express');
-const admin = require('firebase-admin');
+const express = require("express");
+const Twitter = require("twitter-v2");
 
 const router = express.Router();
-const db = admin.firestore();
 
-// Route to test Firebase connection
-router.get('/test', async (req, res) => {
-    try {
-        const docRef = db.collection('testCollection').doc('testDoc');
-        await docRef.set({ message: 'Firebase is working!' });
-        const doc = await docRef.get();
-        res.status(200).json(doc.data());
-    } catch (error) {
-        res.status(500).send('Error writing document: ' + error);
-    }
+const client = new Twitter({
+  bearer_token: process.env.TWITTER_BEARER_TOKEN,
 });
 
+// Fetch user details by username
+router.get("/user/:username", async (req, res) => {
+  const { username } = req.params;
+  try {
+    const { data } = await client.get(`users/by/username/${username}`);
+    res.status(200).json(data);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).send("Error fetching user: " + JSON.stringify(error));
+  }
+});
 
 module.exports = router;
