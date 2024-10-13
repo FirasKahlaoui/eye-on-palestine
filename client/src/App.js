@@ -5,16 +5,18 @@ const App = () => {
 
   const fetchArticles = async () => {
     try {
+      // Constructing the News API URL
+      const newsApiUrl = `https://newsapi.org/v2/everything?q=Palestine&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`;
+
       // Fetching from News API
-      const newsResponse = await fetch(
-        `https://newsapi.org/v2/everything?q=Palestine&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`
-      );
+      const newsResponse = await fetch(newsApiUrl);
       const newsData = await newsResponse.json();
 
+      // Constructing the GNews API URL
+      const gnewsApiUrl = `https://gnews.io/api/v4/search?q=Palestine&token=${process.env.REACT_APP_GNEWS_API_KEY}`;
+
       // Fetching from GNews API
-      const gnewsResponse = await fetch(
-        `https://gnews.io/api/v4/search?q=Palestine&token=${process.env.REACT_APP_GNEWS_API_KEY}`
-      );
+      const gnewsResponse = await fetch(gnewsApiUrl);
       const gnewsData = await gnewsResponse.json();
 
       // Combine articles from both APIs
