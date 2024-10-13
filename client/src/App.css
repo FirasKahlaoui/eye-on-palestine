@@ -1,41 +1,48 @@
 .App {
   text-align: center;
 }
-
 form {
   margin-bottom: 20px;
 }
-
 input {
   margin: 5px;
   padding: 5px;
 }
-
 button {
   padding: 10px 20px;
   margin: 20px;
   cursor: pointer;
 }
-
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+}
+.iframe-container {
+  flex: 1;
+  max-width: 1200px;
+}
+.articles-container {
+  flex: 1;
+  max-width: 600px;
+}
 .articles {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
-
 .article {
   border: 1px solid #ddd;
   padding: 10px;
   margin: 10px;
-  width: 300px;
+  width: 100%;
   text-align: left;
 }
-
 .article h3 {
   font-size: 18px;
   margin-bottom: 10px;
 }
-
 .article p {
   font-size: 14px;
   margin-bottom: 10px;
